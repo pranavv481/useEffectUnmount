@@ -1,23 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
-
+import React, {useState, useEffect} from 'react';
 function App() {
+  const [count, setCount] = useState(0) 
+  useEffect(()=>{
+    console.log("1")
+    const eventHandler = ()=>console.log("hi")
+    document.addEventListener("click", eventHandler)
+   const clearIntervalId = setInterval(()=>{
+     console.log("hi")
+    },2000)
+    return ()=>{
+     console.log("2")
+     document.removeEventListener("click", eventHandler)
+      console.log(count)
+      clearInterval(clearIntervalId)
+
+    }
+  },[count])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>{count}</div>
+      <button onClick={()=>setCount(count+1)}>Increment</button>
     </div>
   );
 }
